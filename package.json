@@ -2,6 +2,10 @@
   "name": "bluemonk-sdk",
   "version": "1.0.0-beta.1",
   "description": "BlueMonk Platform SDK",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shurutech/bluemonk-sdk"
+  },
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",
   "files": [
