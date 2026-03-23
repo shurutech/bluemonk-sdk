@@ -26,18 +26,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Determine npm tag
-        id: npm_tag
-        run: |
-          ver="${GITHUB_REF#refs/tags/v}"
-          if [[ "$ver" == *-beta* ]]; then
-            echo "tag=beta" >> $GITHUB_OUTPUT
-          else
-            echo "tag=latest" >> $GITHUB_OUTPUT
-          fi
-
       - name: Publish to npm
-        run: npm publish --access public --tag ${{ steps.npm_tag.outputs.tag }}
+        run: npm publish --access public --tag latest
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
