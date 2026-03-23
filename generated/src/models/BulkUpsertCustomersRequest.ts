@@ -13,13 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
-import type { UpsertCustomerRequest } from './UpsertCustomerRequest';
+import type { CustomerProfile } from './CustomerProfile';
 import {
-    UpsertCustomerRequestFromJSON,
-    UpsertCustomerRequestFromJSONTyped,
-    UpsertCustomerRequestToJSON,
-    UpsertCustomerRequestToJSONTyped,
-} from './UpsertCustomerRequest';
+    CustomerProfileFromJSON,
+    CustomerProfileFromJSONTyped,
+    CustomerProfileToJSON,
+    CustomerProfileToJSONTyped,
+} from './CustomerProfile';
 
 /**
  * Request body for bulk upserting customers
@@ -29,10 +29,10 @@ import {
 export interface BulkUpsertCustomersRequest {
     /**
      * List of customer profiles to create or update
-     * @type {Array<UpsertCustomerRequest>}
+     * @type {Array<CustomerProfile>}
      * @memberof BulkUpsertCustomersRequest
      */
-    customerProfiles: Array<UpsertCustomerRequest>;
+    customerProfiles: Array<CustomerProfile>;
 }
 
 /**
@@ -53,7 +53,7 @@ export function BulkUpsertCustomersRequestFromJSONTyped(json: any, ignoreDiscrim
     }
     return {
         
-        'customerProfiles': ((json['customerProfiles'] as Array<any>).map(UpsertCustomerRequestFromJSON)),
+        'customerProfiles': ((json['customerProfiles'] as Array<any>).map(CustomerProfileFromJSON)),
     };
 }
 
@@ -68,7 +68,7 @@ export function BulkUpsertCustomersRequestToJSONTyped(value?: BulkUpsertCustomer
 
     return {
         
-        'customerProfiles': ((value['customerProfiles'] as Array<any>).map(UpsertCustomerRequestToJSON)),
+        'customerProfiles': ((value['customerProfiles'] as Array<any>).map(CustomerProfileToJSON)),
     };
 }
 

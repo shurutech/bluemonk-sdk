@@ -1,23 +1,25 @@
 
-# BulkUpsertCustomersRequest
+# CustomerProfile
 
-Request body for bulk upserting customers
+Individual customer profile for upsert operation
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`customerProfiles` | [Array&lt;CustomerProfile&gt;](CustomerProfile.md)
+`integrationId` | string
+`attributes` | { [key: string]: any; }
 
 ## Example
 
 ```typescript
-import type { BulkUpsertCustomersRequest } from 'bluemonk-sdk'
+import type { CustomerProfile } from 'bluemonk-sdk'
 
 // TODO: Update the object below with actual values
 const example = {
-  "customerProfiles": null,
-} satisfies BulkUpsertCustomersRequest
+  "integrationId": cust-001,
+  "attributes": {tier=gold, points=500, isVip=true},
+} satisfies CustomerProfile
 
 console.log(example)
 
@@ -26,7 +28,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as BulkUpsertCustomersRequest
+const exampleParsed = JSON.parse(exampleJSON) as CustomerProfile
 console.log(exampleParsed)
 ```
 

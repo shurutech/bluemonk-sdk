@@ -111,6 +111,7 @@ All URIs are relative to *https://demo.bluemonk.com*
 - [CreateCouponResponse](docs/CreateCouponResponse.md)
 - [CreateStoreRequest](docs/CreateStoreRequest.md)
 - [CustomerInventoryResponse](docs/CustomerInventoryResponse.md)
+- [CustomerProfile](docs/CustomerProfile.md)
 - [ErrorResponse](docs/ErrorResponse.md)
 - [ErrorResponseErrorsInner](docs/ErrorResponseErrorsInner.md)
 - [GetCampaignResponse](docs/GetCampaignResponse.md)
@@ -141,7 +142,6 @@ All URIs are relative to *https://demo.bluemonk.com*
 - [UpdateCouponRequest](docs/UpdateCouponRequest.md)
 - [UpdateCouponResponse](docs/UpdateCouponResponse.md)
 - [UpdateStoreRequest](docs/UpdateStoreRequest.md)
-- [UpsertCustomerRequest](docs/UpsertCustomerRequest.md)
 
 ### Authorization
 

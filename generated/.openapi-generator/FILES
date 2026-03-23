@@ -1,6 +1,5 @@
 .gitignore
 .npmignore
-.openapi-generator-ignore
 README.md
 docs/BulkUpsertCustomersRequest.md
 docs/BulkUpsertCustomersResponse.md
@@ -32,6 +31,7 @@ docs/CreateCouponRequest.md
 docs/CreateCouponResponse.md
 docs/CreateStoreRequest.md
 docs/CustomerInventoryResponse.md
+docs/CustomerProfile.md
 docs/ErrorResponse.md
 docs/ErrorResponseErrorsInner.md
 docs/GetCampaignResponse.md
@@ -64,7 +64,6 @@ docs/UpdateCampaignRequest.md
 docs/UpdateCouponRequest.md
 docs/UpdateCouponResponse.md
 docs/UpdateStoreRequest.md
-docs/UpsertCustomerRequest.md
 package.json
 src/apis/IntegrationApi.ts
 src/apis/ManagementApi.ts
@@ -100,6 +99,7 @@ src/models/CreateCouponRequest.ts
 src/models/CreateCouponResponse.ts
 src/models/CreateStoreRequest.ts
 src/models/CustomerInventoryResponse.ts
+src/models/CustomerProfile.ts
 src/models/ErrorResponse.ts
 src/models/ErrorResponseErrorsInner.ts
 src/models/GetCampaignResponse.ts
@@ -130,7 +130,6 @@ src/models/UpdateCampaignRequest.ts
 src/models/UpdateCouponRequest.ts
 src/models/UpdateCouponResponse.ts
 src/models/UpdateStoreRequest.ts
-src/models/UpsertCustomerRequest.ts
 src/models/index.ts
 src/runtime.ts
 tsconfig.esm.json
