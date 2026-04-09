@@ -61,6 +61,12 @@ export interface IntegrationAPITriggeredEffect {
      * @memberof IntegrationAPITriggeredEffect
      */
     props: { [key: string]: any; };
+    /**
+     * ID of the coupon that triggered this effect (present only for coupon-triggered effects)
+     * @type {number}
+     * @memberof IntegrationAPITriggeredEffect
+     */
+    triggeredByCoupon?: number;
 }
 
 
@@ -114,6 +120,7 @@ export function IntegrationAPITriggeredEffectFromJSONTyped(json: any, ignoreDisc
         'conditionIndex': json['conditionIndex'],
         'effectType': json['effectType'],
         'props': json['props'],
+        'triggeredByCoupon': json['triggeredByCoupon'] == null ? undefined : json['triggeredByCoupon'],
     };
 }
 
@@ -135,6 +142,7 @@ export function IntegrationAPITriggeredEffectToJSONTyped(value?: IntegrationAPIT
         'conditionIndex': value['conditionIndex'],
         'effectType': value['effectType'],
         'props': value['props'],
+        'triggeredByCoupon': value['triggeredByCoupon'],
     };
 }
 

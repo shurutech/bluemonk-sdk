@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+export * from './AttributeManagementAPIResponse';
 export * from './BulkUpsertCustomersRequest';
 export * from './BulkUpsertCustomersResponse';
 export * from './CampaignResponse';
@@ -26,6 +27,7 @@ export * from './CouponCustomerRedemptionLimit';
 export * from './CouponIntegrationAPIResponse';
 export * from './CouponLimitPeriod';
 export * from './CouponResponse';
+export * from './CreateAttributeManagementAPIRequest';
 export * from './CreateCouponRequest';
 export * from './CreateCouponResponse';
 export * from './CreateStoreRequest';

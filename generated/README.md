@@ -66,6 +66,7 @@ All URIs are relative to *https://demo.bluemonk.com*
 *IntegrationApi* | [**upsertCustomer**](docs/IntegrationApi.md#upsertcustomer) | **PUT** /v1/customers/{integrationId} | Upsert a single customer
 *IntegrationApi* | [**upsertSession**](docs/IntegrationApi.md#upsertsession) | **PUT** /v1/sessions/{integrationId} | Create or update a session
 *ManagementApi* | [**applicationWideCouponSearch**](docs/ManagementApi.md#applicationwidecouponsearch) | **POST** /v1/applications/{applicationId}/coupons_search_advanced/no_total | Search coupons application-wide
+*ManagementApi* | [**createAttribute**](docs/ManagementApi.md#createattribute) | **POST** /v1/applications/{applicationId}/attributes | Create a custom attribute
 *ManagementApi* | [**createCoupons**](docs/ManagementApi.md#createcoupons) | **POST** /v1/applications/{applicationId}/campaigns/{campaignId}/coupons | Create coupons
 *ManagementApi* | [**createStore**](docs/ManagementApi.md#createstoreoperation) | **POST** /v1/applications/{applicationId}/stores | Create a new store
 *ManagementApi* | [**deleteStore**](docs/ManagementApi.md#deletestore) | **DELETE** /v1/applications/{applicationId}/stores/{storeId} | Delete a store
@@ -81,6 +82,7 @@ All URIs are relative to *https://demo.bluemonk.com*
 
 ### Models
 
+- [AttributeManagementAPIResponse](docs/AttributeManagementAPIResponse.md)
 - [BulkUpsertCustomersRequest](docs/BulkUpsertCustomersRequest.md)
 - [BulkUpsertCustomersResponse](docs/BulkUpsertCustomersResponse.md)
 - [CampaignResponse](docs/CampaignResponse.md)
@@ -107,6 +109,7 @@ All URIs are relative to *https://demo.bluemonk.com*
 - [CouponIntegrationAPIResponse](docs/CouponIntegrationAPIResponse.md)
 - [CouponLimitPeriod](docs/CouponLimitPeriod.md)
 - [CouponResponse](docs/CouponResponse.md)
+- [CreateAttributeManagementAPIRequest](docs/CreateAttributeManagementAPIRequest.md)
 - [CreateCouponRequest](docs/CreateCouponRequest.md)
 - [CreateCouponResponse](docs/CreateCouponResponse.md)
 - [CreateStoreRequest](docs/CreateStoreRequest.md)

@@ -14,6 +14,7 @@ Name | Type
 `conditionIndex` | number
 `effectType` | string
 `props` | { [key: string]: any; }
+`triggeredByCoupon` | number
 
 ## Example
 
@@ -29,6 +30,7 @@ const example = {
   "conditionIndex": null,
   "effectType": null,
   "props": null,
+  "triggeredByCoupon": null,
 } satisfies IntegrationAPITriggeredEffect
 
 console.log(example)

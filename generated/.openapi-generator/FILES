@@ -1,6 +1,7 @@
 .gitignore
 .npmignore
 README.md
+docs/AttributeManagementAPIResponse.md
 docs/BulkUpsertCustomersRequest.md
 docs/BulkUpsertCustomersResponse.md
 docs/CampaignResponse.md
@@ -27,6 +28,7 @@ docs/CouponCustomerRedemptionLimit.md
 docs/CouponIntegrationAPIResponse.md
 docs/CouponLimitPeriod.md
 docs/CouponResponse.md
+docs/CreateAttributeManagementAPIRequest.md
 docs/CreateCouponRequest.md
 docs/CreateCouponResponse.md
 docs/CreateStoreRequest.md
@@ -69,6 +71,7 @@ src/apis/IntegrationApi.ts
 src/apis/ManagementApi.ts
 src/apis/index.ts
 src/index.ts
+src/models/AttributeManagementAPIResponse.ts
 src/models/BulkUpsertCustomersRequest.ts
 src/models/BulkUpsertCustomersResponse.ts
 src/models/CampaignResponse.ts
@@ -95,6 +98,7 @@ src/models/CouponCustomerRedemptionLimit.ts
 src/models/CouponIntegrationAPIResponse.ts
 src/models/CouponLimitPeriod.ts
 src/models/CouponResponse.ts
+src/models/CreateAttributeManagementAPIRequest.ts
 src/models/CreateCouponRequest.ts
 src/models/CreateCouponResponse.ts
 src/models/CreateStoreRequest.ts

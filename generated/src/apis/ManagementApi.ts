@@ -15,7 +15,9 @@
 
 import * as runtime from '../runtime';
 import type {
+  AttributeManagementAPIResponse,
   CampaignResponse,
+  CreateAttributeManagementAPIRequest,
   CreateCouponRequest,
   CreateCouponResponse,
   CreateStoreRequest,
@@ -31,8 +33,12 @@ import type {
   UpdateStoreRequest,
 } from '../models/index';
 import {
+    AttributeManagementAPIResponseFromJSON,
+    AttributeManagementAPIResponseToJSON,
     CampaignResponseFromJSON,
     CampaignResponseToJSON,
+    CreateAttributeManagementAPIRequestFromJSON,
+    CreateAttributeManagementAPIRequestToJSON,
     CreateCouponRequestFromJSON,
     CreateCouponRequestToJSON,
     CreateCouponResponseFromJSON,
@@ -69,6 +75,11 @@ export interface ApplicationWideCouponSearchRequest {
     recipientIntegrationId?: string;
     usable?: ApplicationWideCouponSearchUsableEnum;
     valid?: ApplicationWideCouponSearchValidEnum;
+}
+
+export interface CreateAttributeRequest {
+    applicationId: number;
+    createAttributeManagementAPIRequest: CreateAttributeManagementAPIRequest;
 }
 
 export interface CreateCouponsRequest {
@@ -222,6 +233,67 @@ export class ManagementApi extends runtime.BaseAPI {
      */
     async applicationWideCouponSearch(requestParameters: ApplicationWideCouponSearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListCouponsResponse> {
         const response = await this.applicationWideCouponSearchRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createAttribute without sending the request
+     */
+    async createAttributeRequestOpts(requestParameters: CreateAttributeRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['applicationId'] == null) {
+            throw new runtime.RequiredError(
+                'applicationId',
+                'Required parameter "applicationId" was null or undefined when calling createAttribute().'
+            );
+        }
+
+        if (requestParameters['createAttributeManagementAPIRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createAttributeManagementAPIRequest',
+                'Required parameter "createAttributeManagementAPIRequest" was null or undefined when calling createAttribute().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-API-Key"] = await this.configuration.apiKey("X-API-Key"); // management_api_key authentication
+        }
+
+
+        let urlPath = `/v1/applications/{applicationId}/attributes`;
+        urlPath = urlPath.replace(`{${"applicationId"}}`, encodeURIComponent(String(requestParameters['applicationId'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateAttributeManagementAPIRequestToJSON(requestParameters['createAttributeManagementAPIRequest']),
+        };
+    }
+
+    /**
+     * Creates a new custom attribute definition for the specified entity type.  When `subscribedApplicationsIds` is empty or omitted, the attribute is created as global (available to all applications). Otherwise, it is scoped to the listed applications.  For `event` entity attributes, the `eventType` field is required and links the attribute to a specific event type. For all other entities, `eventType` must not be provided. 
+     * Create a custom attribute
+     */
+    async createAttributeRaw(requestParameters: CreateAttributeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AttributeManagementAPIResponse>> {
+        const requestOptions = await this.createAttributeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AttributeManagementAPIResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Creates a new custom attribute definition for the specified entity type.  When `subscribedApplicationsIds` is empty or omitted, the attribute is created as global (available to all applications). Otherwise, it is scoped to the listed applications.  For `event` entity attributes, the `eventType` field is required and links the attribute to a specific event type. For all other entities, `eventType` must not be provided. 
+     * Create a custom attribute
+     */
+    async createAttribute(requestParameters: CreateAttributeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AttributeManagementAPIResponse> {
+        const response = await this.createAttributeRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -5,6 +5,7 @@ All URIs are relative to *https://demo.bluemonk.com*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**applicationWideCouponSearch**](ManagementApi.md#applicationwidecouponsearch) | **POST** /v1/applications/{applicationId}/coupons_search_advanced/no_total | Search coupons application-wide |
+| [**createAttribute**](ManagementApi.md#createattribute) | **POST** /v1/applications/{applicationId}/attributes | Create a custom attribute |
 | [**createCoupons**](ManagementApi.md#createcoupons) | **POST** /v1/applications/{applicationId}/campaigns/{campaignId}/coupons | Create coupons |
 | [**createStore**](ManagementApi.md#createstoreoperation) | **POST** /v1/applications/{applicationId}/stores | Create a new store |
 | [**deleteStore**](ManagementApi.md#deletestore) | **DELETE** /v1/applications/{applicationId}/stores/{storeId} | Delete a store |
@@ -106,6 +107,84 @@ example().catch(console.error);
 | **200** | List of coupons retrieved successfully |  -  |
 | **401** | Unauthorized - Missing or invalid API key |  -  |
 | **404** | Not Found - Application does not exist or is not accessible |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## createAttribute
+
+> AttributeManagementAPIResponse createAttribute(applicationId, createAttributeManagementAPIRequest)
+
+Create a custom attribute
+
+Creates a new custom attribute definition for the specified entity type.  When &#x60;subscribedApplicationsIds&#x60; is empty or omitted, the attribute is created as global (available to all applications). Otherwise, it is scoped to the listed applications.  For &#x60;event&#x60; entity attributes, the &#x60;eventType&#x60; field is required and links the attribute to a specific event type. For all other entities, &#x60;eventType&#x60; must not be provided. 
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ManagementApi,
+} from 'bluemonk-sdk';
+import type { CreateAttributeRequest } from 'bluemonk-sdk';
+
+async function example() {
+  console.log("🚀 Testing bluemonk-sdk SDK...");
+  const config = new Configuration({ 
+    // To configure API key authorization: management_api_key
+    apiKey: "YOUR API KEY",
+  });
+  const api = new ManagementApi(config);
+
+  const body = {
+    // number | The ID of the application
+    applicationId: 5,
+    // CreateAttributeManagementAPIRequest
+    createAttributeManagementAPIRequest: {"entity":"customer","type":"string","name":"loyaltyTier","title":"Loyalty Tier","description":"Customer loyalty program tier level"},
+  } satisfies CreateAttributeRequest;
+
+  try {
+    const data = await api.createAttribute(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **applicationId** | `number` | The ID of the application | [Defaults to `undefined`] |
+| **createAttributeManagementAPIRequest** | [CreateAttributeManagementAPIRequest](CreateAttributeManagementAPIRequest.md) |  | |
+
+### Return type
+
+[**AttributeManagementAPIResponse**](AttributeManagementAPIResponse.md)
+
+### Authorization
+
+[management_api_key](../README.md#management_api_key)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Attribute created successfully |  -  |
+| **400** | Bad Request - Validation error or invalid input |  -  |
+| **401** | Unauthorized - Missing or invalid API key |  -  |
+| **404** | Not Found - Application does not exist or is not accessible |  -  |
+| **409** | An attribute with the same name and entity already exists |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
