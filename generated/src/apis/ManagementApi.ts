@@ -78,7 +78,6 @@ export interface ApplicationWideCouponSearchRequest {
 }
 
 export interface CreateAttributeRequest {
-    applicationId: number;
     createAttributeManagementAPIRequest: CreateAttributeManagementAPIRequest;
 }
 
@@ -240,13 +239,6 @@ export class ManagementApi extends runtime.BaseAPI {
      * Creates request options for createAttribute without sending the request
      */
     async createAttributeRequestOpts(requestParameters: CreateAttributeRequest): Promise<runtime.RequestOpts> {
-        if (requestParameters['applicationId'] == null) {
-            throw new runtime.RequiredError(
-                'applicationId',
-                'Required parameter "applicationId" was null or undefined when calling createAttribute().'
-            );
-        }
-
         if (requestParameters['createAttributeManagementAPIRequest'] == null) {
             throw new runtime.RequiredError(
                 'createAttributeManagementAPIRequest',
@@ -265,8 +257,7 @@ export class ManagementApi extends runtime.BaseAPI {
         }
 
 
-        let urlPath = `/v1/applications/{applicationId}/attributes`;
-        urlPath = urlPath.replace(`{${"applicationId"}}`, encodeURIComponent(String(requestParameters['applicationId'])));
+        let urlPath = `/v1/attributes`;
 
         return {
             path: urlPath,

@@ -5,7 +5,7 @@ All URIs are relative to *https://demo.bluemonk.com*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**applicationWideCouponSearch**](ManagementApi.md#applicationwidecouponsearch) | **POST** /v1/applications/{applicationId}/coupons_search_advanced/no_total | Search coupons application-wide |
-| [**createAttribute**](ManagementApi.md#createattribute) | **POST** /v1/applications/{applicationId}/attributes | Create a custom attribute |
+| [**createAttribute**](ManagementApi.md#createattribute) | **POST** /v1/attributes | Create a custom attribute |
 | [**createCoupons**](ManagementApi.md#createcoupons) | **POST** /v1/applications/{applicationId}/campaigns/{campaignId}/coupons | Create coupons |
 | [**createStore**](ManagementApi.md#createstoreoperation) | **POST** /v1/applications/{applicationId}/stores | Create a new store |
 | [**deleteStore**](ManagementApi.md#deletestore) | **DELETE** /v1/applications/{applicationId}/stores/{storeId} | Delete a store |
@@ -113,7 +113,7 @@ example().catch(console.error);
 
 ## createAttribute
 
-> AttributeManagementAPIResponse createAttribute(applicationId, createAttributeManagementAPIRequest)
+> AttributeManagementAPIResponse createAttribute(createAttributeManagementAPIRequest)
 
 Create a custom attribute
 
@@ -137,8 +137,6 @@ async function example() {
   const api = new ManagementApi(config);
 
   const body = {
-    // number | The ID of the application
-    applicationId: 5,
     // CreateAttributeManagementAPIRequest
     createAttributeManagementAPIRequest: {"entity":"customer","type":"string","name":"loyaltyTier","title":"Loyalty Tier","description":"Customer loyalty program tier level"},
   } satisfies CreateAttributeRequest;
@@ -160,7 +158,6 @@ example().catch(console.error);
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **applicationId** | `number` | The ID of the application | [Defaults to `undefined`] |
 | **createAttributeManagementAPIRequest** | [CreateAttributeManagementAPIRequest](CreateAttributeManagementAPIRequest.md) |  | |
 
 ### Return type
@@ -183,7 +180,6 @@ example().catch(console.error);
 | **201** | Attribute created successfully |  -  |
 | **400** | Bad Request - Validation error or invalid input |  -  |
 | **401** | Unauthorized - Missing or invalid API key |  -  |
-| **404** | Not Found - Application does not exist or is not accessible |  -  |
 | **409** | An attribute with the same name and entity already exists |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
