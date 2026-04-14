@@ -235,6 +235,26 @@ managementApi
     }
   );
 
+// Example: Create a custom attribute
+managementApi
+  .createAttribute({
+    createAttributeManagementAPIRequest: {
+      entity: "customer",
+      type: "string",
+      name: "loyaltyTier",
+      title: "Loyalty Tier",
+      description: "Customer loyalty program tier level",
+    },
+  })
+  .then(
+    (data) => {
+      console.log("Attribute created:", JSON.stringify(data, null, 2));
+    },
+    (err) => {
+      console.error(err);
+    }
+  );
+
 // Example: Create coupons for a campaign
 // Use silent: "no" to receive the created coupon data in the response
 managementApi
@@ -290,6 +310,7 @@ All URIs are relative to your BlueMonk deployment base URL.
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
 | **applicationWideCouponSearch** | **POST** /v1/applications/{applicationId}/coupons_search_advanced/no_total | Search coupons across application |
+| **createAttribute** | **POST** /v1/attributes | Create a custom attribute |
 | **createCoupons** | **POST** /v1/applications/{applicationId}/campaigns/{campaignId}/coupons | Create coupons |
 | **createStore** | **POST** /v1/applications/{applicationId}/stores | Create store |
 | **deleteStore** | **DELETE** /v1/applications/{applicationId}/stores/{storeId} | Delete store |
@@ -304,6 +325,7 @@ All URIs are relative to your BlueMonk deployment base URL.
 
 ### Models
 
+- AttributeManagementAPIResponse
 - BulkUpsertCustomersRequest
 - BulkUpsertCustomersResponse
 - CampaignResponse
@@ -326,6 +348,7 @@ All URIs are relative to your BlueMonk deployment base URL.
 - CatalogSyncRequest
 - CatalogSyncResponse
 - CatalogSyncResponseData
+- CreateAttributeManagementAPIRequest
 - CouponCustomerRedemptionLimit
 - CouponIntegrationAPIResponse
 - CouponLimitPeriod
