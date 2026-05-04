@@ -32,14 +32,13 @@ export interface BulkUpsertCustomersRequest {
      * @type {Array<CustomerProfile>}
      * @memberof BulkUpsertCustomersRequest
      */
-    customerProfiles: Array<CustomerProfile>;
+    customerProfiles?: Array<CustomerProfile>;
 }
 
 /**
  * Check if a given object implements the BulkUpsertCustomersRequest interface.
  */
 export function instanceOfBulkUpsertCustomersRequest(value: object): value is BulkUpsertCustomersRequest {
-    if (!('customerProfiles' in value) || value['customerProfiles'] === undefined) return false;
     return true;
 }
 
@@ -53,7 +52,7 @@ export function BulkUpsertCustomersRequestFromJSONTyped(json: any, ignoreDiscrim
     }
     return {
         
-        'customerProfiles': ((json['customerProfiles'] as Array<any>).map(CustomerProfileFromJSON)),
+        'customerProfiles': json['customerProfiles'] == null ? undefined : ((json['customerProfiles'] as Array<any>).map(CustomerProfileFromJSON)),
     };
 }
 
@@ -68,7 +67,7 @@ export function BulkUpsertCustomersRequestToJSONTyped(value?: BulkUpsertCustomer
 
     return {
         
-        'customerProfiles': ((value['customerProfiles'] as Array<any>).map(CustomerProfileToJSON)),
+        'customerProfiles': value['customerProfiles'] == null ? undefined : ((value['customerProfiles'] as Array<any>).map(CustomerProfileToJSON)),
     };
 }
 

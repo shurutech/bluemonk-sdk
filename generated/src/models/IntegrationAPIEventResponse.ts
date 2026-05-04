@@ -74,7 +74,7 @@ export interface IntegrationAPIEventResponse {
      * @type {Array<IntegrationAPITriggeredEffect>}
      * @memberof IntegrationAPIEventResponse
      */
-    effects: Array<IntegrationAPITriggeredEffect>;
+    effects?: Array<IntegrationAPITriggeredEffect>;
     /**
      * Creation timestamp
      * @type {Date}
@@ -94,7 +94,6 @@ export function instanceOfIntegrationAPIEventResponse(value: object): value is I
     if (!('profileId' in value) || value['profileId'] === undefined) return false;
     if (!('storeIntegrationId' in value) || value['storeIntegrationId'] === undefined) return false;
     if (!('sessionId' in value) || value['sessionId'] === undefined) return false;
-    if (!('effects' in value) || value['effects'] === undefined) return false;
     if (!('created' in value) || value['created'] === undefined) return false;
     return true;
 }
@@ -116,7 +115,7 @@ export function IntegrationAPIEventResponseFromJSONTyped(json: any, ignoreDiscri
         'profileId': json['profileId'],
         'storeIntegrationId': json['storeIntegrationId'],
         'sessionId': json['sessionId'],
-        'effects': ((json['effects'] as Array<any>).map(IntegrationAPITriggeredEffectFromJSON)),
+        'effects': json['effects'] == null ? undefined : ((json['effects'] as Array<any>).map(IntegrationAPITriggeredEffectFromJSON)),
         'created': (new Date(json['created'])),
     };
 }
@@ -139,7 +138,7 @@ export function IntegrationAPIEventResponseToJSONTyped(value?: IntegrationAPIEve
         'profileId': value['profileId'],
         'storeIntegrationId': value['storeIntegrationId'],
         'sessionId': value['sessionId'],
-        'effects': ((value['effects'] as Array<any>).map(IntegrationAPITriggeredEffectToJSON)),
+        'effects': value['effects'] == null ? undefined : ((value['effects'] as Array<any>).map(IntegrationAPITriggeredEffectToJSON)),
         'created': value['created'].toISOString(),
     };
 }

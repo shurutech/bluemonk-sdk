@@ -32,14 +32,13 @@ export interface BulkUpsertCustomersResponse {
      * @type {Array<IntegrationAPICustomerResponse>}
      * @memberof BulkUpsertCustomersResponse
      */
-    integrationStates: Array<IntegrationAPICustomerResponse>;
+    integrationStates?: Array<IntegrationAPICustomerResponse>;
 }
 
 /**
  * Check if a given object implements the BulkUpsertCustomersResponse interface.
  */
 export function instanceOfBulkUpsertCustomersResponse(value: object): value is BulkUpsertCustomersResponse {
-    if (!('integrationStates' in value) || value['integrationStates'] === undefined) return false;
     return true;
 }
 
@@ -53,7 +52,7 @@ export function BulkUpsertCustomersResponseFromJSONTyped(json: any, ignoreDiscri
     }
     return {
         
-        'integrationStates': ((json['integrationStates'] as Array<any>).map(IntegrationAPICustomerResponseFromJSON)),
+        'integrationStates': json['integrationStates'] == null ? undefined : ((json['integrationStates'] as Array<any>).map(IntegrationAPICustomerResponseFromJSON)),
     };
 }
 
@@ -68,7 +67,7 @@ export function BulkUpsertCustomersResponseToJSONTyped(value?: BulkUpsertCustome
 
     return {
         
-        'integrationStates': ((value['integrationStates'] as Array<any>).map(IntegrationAPICustomerResponseToJSON)),
+        'integrationStates': value['integrationStates'] == null ? undefined : ((value['integrationStates'] as Array<any>).map(IntegrationAPICustomerResponseToJSON)),
     };
 }
 

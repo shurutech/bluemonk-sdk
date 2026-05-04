@@ -38,7 +38,7 @@ export interface ErrorResponse {
      * @type {Array<ErrorResponseErrorsInner>}
      * @memberof ErrorResponse
      */
-    errors: Array<ErrorResponseErrorsInner>;
+    errors?: Array<ErrorResponseErrorsInner>;
 }
 
 /**
@@ -46,7 +46,6 @@ export interface ErrorResponse {
  */
 export function instanceOfErrorResponse(value: object): value is ErrorResponse {
     if (!('message' in value) || value['message'] === undefined) return false;
-    if (!('errors' in value) || value['errors'] === undefined) return false;
     return true;
 }
 
@@ -61,7 +60,7 @@ export function ErrorResponseFromJSONTyped(json: any, ignoreDiscriminator: boole
     return {
         
         'message': json['message'],
-        'errors': ((json['errors'] as Array<any>).map(ErrorResponseErrorsInnerFromJSON)),
+        'errors': json['errors'] == null ? undefined : ((json['errors'] as Array<any>).map(ErrorResponseErrorsInnerFromJSON)),
     };
 }
 
@@ -77,7 +76,7 @@ export function ErrorResponseToJSONTyped(value?: ErrorResponse | null, ignoreDis
     return {
         
         'message': value['message'],
-        'errors': ((value['errors'] as Array<any>).map(ErrorResponseErrorsInnerToJSON)),
+        'errors': value['errors'] == null ? undefined : ((value['errors'] as Array<any>).map(ErrorResponseErrorsInnerToJSON)),
     };
 }
 

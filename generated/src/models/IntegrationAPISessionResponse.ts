@@ -87,13 +87,13 @@ export interface IntegrationAPISessionResponse {
      * @type {Array<SessionCartItem>}
      * @memberof IntegrationAPISessionResponse
      */
-    cartItems: Array<SessionCartItem>;
+    cartItems?: Array<SessionCartItem>;
     /**
      * Named additional costs
      * @type {{ [key: string]: SessionAdditionalCost; }}
      * @memberof IntegrationAPISessionResponse
      */
-    additionalCosts: { [key: string]: SessionAdditionalCost; };
+    additionalCosts?: { [key: string]: SessionAdditionalCost; };
     /**
      * Session attributes
      * @type {{ [key: string]: any; }}
@@ -156,8 +156,6 @@ export function instanceOfIntegrationAPISessionResponse(value: object): value is
     if (!('storeIntegrationId' in value) || value['storeIntegrationId'] === undefined) return false;
     if (!('couponCodes' in value) || value['couponCodes'] === undefined) return false;
     if (!('identifiers' in value) || value['identifiers'] === undefined) return false;
-    if (!('cartItems' in value) || value['cartItems'] === undefined) return false;
-    if (!('additionalCosts' in value) || value['additionalCosts'] === undefined) return false;
     if (!('attributes' in value) || value['attributes'] === undefined) return false;
     if (!('cartItemsTotal' in value) || value['cartItemsTotal'] === undefined) return false;
     if (!('additionalCostsTotal' in value) || value['additionalCostsTotal'] === undefined) return false;
@@ -185,8 +183,8 @@ export function IntegrationAPISessionResponseFromJSONTyped(json: any, ignoreDisc
         'storeIntegrationId': json['storeIntegrationId'],
         'couponCodes': json['couponCodes'],
         'identifiers': json['identifiers'],
-        'cartItems': ((json['cartItems'] as Array<any>).map(SessionCartItemFromJSON)),
-        'additionalCosts': (mapValues(json['additionalCosts'], SessionAdditionalCostFromJSON)),
+        'cartItems': json['cartItems'] == null ? undefined : ((json['cartItems'] as Array<any>).map(SessionCartItemFromJSON)),
+        'additionalCosts': json['additionalCosts'] == null ? undefined : (mapValues(json['additionalCosts'], SessionAdditionalCostFromJSON)),
         'attributes': json['attributes'],
         'cartItemsTotal': json['cartItemsTotal'],
         'additionalCostsTotal': json['additionalCostsTotal'],
@@ -215,8 +213,8 @@ export function IntegrationAPISessionResponseToJSONTyped(value?: IntegrationAPIS
         'storeIntegrationId': value['storeIntegrationId'],
         'couponCodes': value['couponCodes'],
         'identifiers': value['identifiers'],
-        'cartItems': ((value['cartItems'] as Array<any>).map(SessionCartItemToJSON)),
-        'additionalCosts': (mapValues(value['additionalCosts'], SessionAdditionalCostToJSON)),
+        'cartItems': value['cartItems'] == null ? undefined : ((value['cartItems'] as Array<any>).map(SessionCartItemToJSON)),
+        'additionalCosts': value['additionalCosts'] == null ? undefined : (mapValues(value['additionalCosts'], SessionAdditionalCostToJSON)),
         'attributes': value['attributes'],
         'cartItemsTotal': value['cartItemsTotal'],
         'additionalCostsTotal': value['additionalCostsTotal'],

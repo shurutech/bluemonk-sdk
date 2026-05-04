@@ -92,7 +92,7 @@ export interface InventoryCouponResponse {
      * @type {Array<CouponCustomerRedemptionLimit>}
      * @memberof InventoryCouponResponse
      */
-    limits: Array<CouponCustomerRedemptionLimit>;
+    limits?: Array<CouponCustomerRedemptionLimit>;
     /**
      * Whether the coupon supports reservation
      * @type {boolean}
@@ -155,7 +155,6 @@ export function instanceOfInventoryCouponResponse(value: object): value is Inven
     if (!('usageLimit' in value) || value['usageLimit'] === undefined) return false;
     if (!('usageCounter' in value) || value['usageCounter'] === undefined) return false;
     if (!('recipientIntegrationId' in value) || value['recipientIntegrationId'] === undefined) return false;
-    if (!('limits' in value) || value['limits'] === undefined) return false;
     if (!('reservation' in value) || value['reservation'] === undefined) return false;
     if (!('implicitlyReserved' in value) || value['implicitlyReserved'] === undefined) return false;
     if (!('isReservationMandatory' in value) || value['isReservationMandatory'] === undefined) return false;
@@ -187,7 +186,7 @@ export function InventoryCouponResponseFromJSONTyped(json: any, ignoreDiscrimina
         'expiryDate': json['expiryDate'] == null ? undefined : (new Date(json['expiryDate'])),
         'usageCounter': json['usageCounter'],
         'recipientIntegrationId': json['recipientIntegrationId'],
-        'limits': ((json['limits'] as Array<any>).map(CouponCustomerRedemptionLimitFromJSON)),
+        'limits': json['limits'] == null ? undefined : ((json['limits'] as Array<any>).map(CouponCustomerRedemptionLimitFromJSON)),
         'reservation': json['reservation'],
         'implicitlyReserved': json['implicitlyReserved'],
         'isReservationMandatory': json['isReservationMandatory'],
@@ -220,7 +219,7 @@ export function InventoryCouponResponseToJSONTyped(value?: InventoryCouponRespon
         'expiryDate': value['expiryDate'] == null ? value['expiryDate'] : value['expiryDate'].toISOString(),
         'usageCounter': value['usageCounter'],
         'recipientIntegrationId': value['recipientIntegrationId'],
-        'limits': ((value['limits'] as Array<any>).map(CouponCustomerRedemptionLimitToJSON)),
+        'limits': value['limits'] == null ? undefined : ((value['limits'] as Array<any>).map(CouponCustomerRedemptionLimitToJSON)),
         'reservation': value['reservation'],
         'implicitlyReserved': value['implicitlyReserved'],
         'isReservationMandatory': value['isReservationMandatory'],

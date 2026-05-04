@@ -32,14 +32,13 @@ export interface CatalogSyncRemoveManyPayload {
      * @type {Array<CatalogItemsFilter>}
      * @memberof CatalogSyncRemoveManyPayload
      */
-    filters: Array<CatalogItemsFilter>;
+    filters?: Array<CatalogItemsFilter>;
 }
 
 /**
  * Check if a given object implements the CatalogSyncRemoveManyPayload interface.
  */
 export function instanceOfCatalogSyncRemoveManyPayload(value: object): value is CatalogSyncRemoveManyPayload {
-    if (!('filters' in value) || value['filters'] === undefined) return false;
     return true;
 }
 
@@ -53,7 +52,7 @@ export function CatalogSyncRemoveManyPayloadFromJSONTyped(json: any, ignoreDiscr
     }
     return {
         
-        'filters': ((json['filters'] as Array<any>).map(CatalogItemsFilterFromJSON)),
+        'filters': json['filters'] == null ? undefined : ((json['filters'] as Array<any>).map(CatalogItemsFilterFromJSON)),
     };
 }
 
@@ -68,7 +67,7 @@ export function CatalogSyncRemoveManyPayloadToJSONTyped(value?: CatalogSyncRemov
 
     return {
         
-        'filters': ((value['filters'] as Array<any>).map(CatalogItemsFilterToJSON)),
+        'filters': value['filters'] == null ? undefined : ((value['filters'] as Array<any>).map(CatalogItemsFilterToJSON)),
     };
 }
 

@@ -44,14 +44,13 @@ export interface CatalogSyncPatchManyPayload {
      * @type {Array<CatalogItemsFilter>}
      * @memberof CatalogSyncPatchManyPayload
      */
-    filters: Array<CatalogItemsFilter>;
+    filters?: Array<CatalogItemsFilter>;
 }
 
 /**
  * Check if a given object implements the CatalogSyncPatchManyPayload interface.
  */
 export function instanceOfCatalogSyncPatchManyPayload(value: object): value is CatalogSyncPatchManyPayload {
-    if (!('filters' in value) || value['filters'] === undefined) return false;
     return true;
 }
 
@@ -67,7 +66,7 @@ export function CatalogSyncPatchManyPayloadFromJSONTyped(json: any, ignoreDiscri
         
         'price': json['price'] == null ? undefined : json['price'],
         'attributes': json['attributes'] == null ? undefined : json['attributes'],
-        'filters': ((json['filters'] as Array<any>).map(CatalogItemsFilterFromJSON)),
+        'filters': json['filters'] == null ? undefined : ((json['filters'] as Array<any>).map(CatalogItemsFilterFromJSON)),
     };
 }
 
@@ -84,7 +83,7 @@ export function CatalogSyncPatchManyPayloadToJSONTyped(value?: CatalogSyncPatchM
         
         'price': value['price'],
         'attributes': value['attributes'],
-        'filters': ((value['filters'] as Array<any>).map(CatalogItemsFilterToJSON)),
+        'filters': value['filters'] == null ? undefined : ((value['filters'] as Array<any>).map(CatalogItemsFilterToJSON)),
     };
 }
 

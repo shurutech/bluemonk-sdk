@@ -39,14 +39,13 @@ export interface CatalogSyncRequest {
      * @type {Array<CatalogSyncAction>}
      * @memberof CatalogSyncRequest
      */
-    actions: Array<CatalogSyncAction>;
+    actions?: Array<CatalogSyncAction>;
 }
 
 /**
  * Check if a given object implements the CatalogSyncRequest interface.
  */
 export function instanceOfCatalogSyncRequest(value: object): value is CatalogSyncRequest {
-    if (!('actions' in value) || value['actions'] === undefined) return false;
     return true;
 }
 
@@ -60,7 +59,7 @@ export function CatalogSyncRequestFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'actions': ((json['actions'] as Array<any>).map(CatalogSyncActionFromJSON)),
+        'actions': json['actions'] == null ? undefined : ((json['actions'] as Array<any>).map(CatalogSyncActionFromJSON)),
     };
 }
 
@@ -75,7 +74,7 @@ export function CatalogSyncRequestToJSONTyped(value?: CatalogSyncRequest | null,
 
     return {
         
-        'actions': ((value['actions'] as Array<any>).map(CatalogSyncActionToJSON)),
+        'actions': value['actions'] == null ? undefined : ((value['actions'] as Array<any>).map(CatalogSyncActionToJSON)),
     };
 }
 
