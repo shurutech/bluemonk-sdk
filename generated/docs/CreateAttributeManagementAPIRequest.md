@@ -14,6 +14,8 @@ Name | Type
 `description` | string
 `subscribedApplicationsIds` | Array&lt;number&gt;
 `eventType` | string
+`allowedValues` | Array&lt;any&gt;
+`allowOtherValues` | boolean
 
 ## Example
 
@@ -29,6 +31,8 @@ const example = {
   "description": Customer loyalty program tier level,
   "subscribedApplicationsIds": [1, 2],
   "eventType": pageView,
+  "allowedValues": [gold, silver, platinum],
+  "allowOtherValues": false,
 } satisfies CreateAttributeManagementAPIRequest
 
 console.log(example)

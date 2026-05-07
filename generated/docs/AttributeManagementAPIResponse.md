@@ -15,6 +15,8 @@ Name | Type
 `description` | string
 `eventType` | string
 `subscribedApplicationsIds` | Array&lt;number&gt;
+`allowedValues` | Array&lt;any&gt;
+`allowOtherValues` | boolean
 `created` | Date
 `updated` | Date
 
@@ -33,6 +35,8 @@ const example = {
   "description": Customer loyalty program tier level,
   "eventType": pageView,
   "subscribedApplicationsIds": [1, 2],
+  "allowedValues": [gold, silver, platinum],
+  "allowOtherValues": false,
   "created": 2024-01-15T10:30:00Z,
   "updated": 2024-01-15T10:30:00Z,
 } satisfies AttributeManagementAPIResponse

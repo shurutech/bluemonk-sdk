@@ -397,7 +397,7 @@ export class IntegrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Reserve a coupon for one or more customers. This creates a reservation that holds the coupon for the specified customers until they redeem it or the reservation is cancelled.  ## Universal vs Personal Coupons  - **Universal Coupons**: Can be reserved for multiple customers. The `reservation` field in the response will be `true`. - **Personal Coupons**: Can only be reserved for the designated recipient. Attempting to reserve   for other customers will return a 400 error.  ## Idempotency  Reserving the same coupon for the same customer multiple times is idempotent - the reservation counter will not increase if the customer already has an active reservation. 
+     * Reserve a coupon for one or more customers. This creates a reservation that holds the coupon for the specified customers until they redeem it or the reservation is cancelled.  ## Universal vs Personal Coupons  - **Universal Coupons**: Can be reserved for multiple customers. The `reservation` field in the response will be `true`. - **Personal Coupons**: Can only be reserved for the designated recipient. Attempting to reserve    for other customers will return a 400 error.  ## Idempotency  Reserving the same coupon for the same customer multiple times is idempotent - the reservation counter will not increase if the customer already has an active reservation. 
      * Reserve coupon for customers
      */
     async reserveCouponForCustomersRaw(requestParameters: ReserveCouponForCustomersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CouponIntegrationAPIResponse>> {
@@ -408,7 +408,7 @@ export class IntegrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Reserve a coupon for one or more customers. This creates a reservation that holds the coupon for the specified customers until they redeem it or the reservation is cancelled.  ## Universal vs Personal Coupons  - **Universal Coupons**: Can be reserved for multiple customers. The `reservation` field in the response will be `true`. - **Personal Coupons**: Can only be reserved for the designated recipient. Attempting to reserve   for other customers will return a 400 error.  ## Idempotency  Reserving the same coupon for the same customer multiple times is idempotent - the reservation counter will not increase if the customer already has an active reservation. 
+     * Reserve a coupon for one or more customers. This creates a reservation that holds the coupon for the specified customers until they redeem it or the reservation is cancelled.  ## Universal vs Personal Coupons  - **Universal Coupons**: Can be reserved for multiple customers. The `reservation` field in the response will be `true`. - **Personal Coupons**: Can only be reserved for the designated recipient. Attempting to reserve    for other customers will return a 400 error.  ## Idempotency  Reserving the same coupon for the same customer multiple times is idempotent - the reservation counter will not increase if the customer already has an active reservation. 
      * Reserve coupon for customers
      */
     async reserveCouponForCustomers(requestParameters: ReserveCouponForCustomersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CouponIntegrationAPIResponse> {

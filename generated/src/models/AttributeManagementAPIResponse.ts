@@ -66,7 +66,23 @@ export interface AttributeManagementAPIResponse {
      * @type {Array<number>}
      * @memberof AttributeManagementAPIResponse
      */
-    subscribedApplicationsIds: Array<number>;
+    subscribedApplicationsIds?: Array<number>;
+    /**
+     * Set of values this attribute is restricted to (or informational).
+     * Element type matches the attribute's base type.
+     * 
+     * @type {Array<any>}
+     * @memberof AttributeManagementAPIResponse
+     */
+    allowedValues?: Array<any>;
+    /**
+     * When true, values outside allowedValues are accepted. When false, only values in
+     * allowedValues are accepted.
+     * 
+     * @type {boolean}
+     * @memberof AttributeManagementAPIResponse
+     */
+    allowOtherValues: boolean;
     /**
      * Timestamp when the attribute was created
      * @type {Date}
@@ -123,7 +139,7 @@ export function instanceOfAttributeManagementAPIResponse(value: object): value i
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('title' in value) || value['title'] === undefined) return false;
     if (!('description' in value) || value['description'] === undefined) return false;
-    if (!('subscribedApplicationsIds' in value) || value['subscribedApplicationsIds'] === undefined) return false;
+    if (!('allowOtherValues' in value) || value['allowOtherValues'] === undefined) return false;
     if (!('created' in value) || value['created'] === undefined) return false;
     if (!('updated' in value) || value['updated'] === undefined) return false;
     return true;
@@ -146,7 +162,9 @@ export function AttributeManagementAPIResponseFromJSONTyped(json: any, ignoreDis
         'title': json['title'],
         'description': json['description'],
         'eventType': json['eventType'] == null ? undefined : json['eventType'],
-        'subscribedApplicationsIds': json['subscribedApplicationsIds'],
+        'subscribedApplicationsIds': json['subscribedApplicationsIds'] == null ? undefined : json['subscribedApplicationsIds'],
+        'allowedValues': json['allowedValues'] == null ? undefined : json['allowedValues'],
+        'allowOtherValues': json['allowOtherValues'],
         'created': (new Date(json['created'])),
         'updated': (new Date(json['updated'])),
     };
@@ -171,6 +189,8 @@ export function AttributeManagementAPIResponseToJSONTyped(value?: AttributeManag
         'description': value['description'],
         'eventType': value['eventType'],
         'subscribedApplicationsIds': value['subscribedApplicationsIds'],
+        'allowedValues': value['allowedValues'],
+        'allowOtherValues': value['allowOtherValues'],
         'created': value['created'].toISOString(),
         'updated': value['updated'].toISOString(),
     };

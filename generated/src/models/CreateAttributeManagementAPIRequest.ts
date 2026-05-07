@@ -61,6 +61,26 @@ export interface CreateAttributeManagementAPIRequest {
      * @memberof CreateAttributeManagementAPIRequest
      */
     eventType?: string;
+    /**
+     * Optional set of values that this attribute is restricted to. Element type matches the
+     * attribute's base type (strings for `string`/`listOfStrings`, numbers for `number`/`listOfNumbers`).
+     * Only supported for those four types; must be empty for `boolean` and `time`.
+     * Strings are case-sensitive; numbers compared with epsilon `1e-9`.
+     * 
+     * @type {Array<any>}
+     * @memberof CreateAttributeManagementAPIRequest
+     */
+    allowedValues?: Array<any>;
+    /**
+     * When true, values outside `allowedValues` are accepted. When false, only values in
+     * `allowedValues` are accepted and `allowedValues` must be non-empty.
+     * Required field; not supported for `boolean` and `time` attribute types
+     * (must be true for those).
+     * 
+     * @type {boolean}
+     * @memberof CreateAttributeManagementAPIRequest
+     */
+    allowOtherValues: boolean;
 }
 
 
@@ -104,6 +124,7 @@ export function instanceOfCreateAttributeManagementAPIRequest(value: object): va
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('title' in value) || value['title'] === undefined) return false;
     if (!('description' in value) || value['description'] === undefined) return false;
+    if (!('allowOtherValues' in value) || value['allowOtherValues'] === undefined) return false;
     return true;
 }
 
@@ -124,6 +145,8 @@ export function CreateAttributeManagementAPIRequestFromJSONTyped(json: any, igno
         'description': json['description'],
         'subscribedApplicationsIds': json['subscribedApplicationsIds'] == null ? undefined : json['subscribedApplicationsIds'],
         'eventType': json['eventType'] == null ? undefined : json['eventType'],
+        'allowedValues': json['allowedValues'] == null ? undefined : json['allowedValues'],
+        'allowOtherValues': json['allowOtherValues'],
     };
 }
 
@@ -145,6 +168,8 @@ export function CreateAttributeManagementAPIRequestToJSONTyped(value?: CreateAtt
         'description': value['description'],
         'subscribedApplicationsIds': value['subscribedApplicationsIds'],
         'eventType': value['eventType'],
+        'allowedValues': value['allowedValues'],
+        'allowOtherValues': value['allowOtherValues'],
     };
 }
 
