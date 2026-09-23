@@ -59,7 +59,9 @@ All URIs are relative to *https://demo.bluemonk.com*
 *IntegrationApi* | [**bulkUpsertCustomers**](docs/IntegrationApi.md#bulkupsertcustomersoperation) | **PUT** /v1/customers | Bulk upsert customers
 *IntegrationApi* | [**cancelCouponReservationsForCustomers**](docs/IntegrationApi.md#cancelcouponreservationsforcustomers) | **DELETE** /v1/coupon_reservations/{couponValue} | Cancel coupon reservations for customers
 *IntegrationApi* | [**getCustomerInventory**](docs/IntegrationApi.md#getcustomerinventory) | **GET** /v1/customers/{integrationId}/inventory | Get customer inventory
+*IntegrationApi* | [**getCustomerJourneyView**](docs/IntegrationApi.md#getcustomerjourneyview) | **GET** /v1/journeys/{journeyId}/customers/{integrationId} | Get a customer\&#39;s journey view
 *IntegrationApi* | [**getSession**](docs/IntegrationApi.md#getsession) | **GET** /v1/sessions/{integrationId} | Get session by integration ID
+*IntegrationApi* | [**listCustomerJourneys**](docs/IntegrationApi.md#listcustomerjourneys) | **GET** /v1/customers/{integrationId}/journeys | List a customer\&#39;s journey vouchers
 *IntegrationApi* | [**reserveCouponForCustomers**](docs/IntegrationApi.md#reservecouponforcustomers) | **POST** /v1/coupon_reservations/{couponValue} | Reserve coupon for customers
 *IntegrationApi* | [**syncCatalogItems**](docs/IntegrationApi.md#synccatalogitems) | **PUT** /v1/catalogs/{catalogId}/sync | Sync catalog items
 *IntegrationApi* | [**trackEvent**](docs/IntegrationApi.md#trackevent) | **POST** /v1/events | Track an event
@@ -114,6 +116,8 @@ All URIs are relative to *https://demo.bluemonk.com*
 - [CreateCouponResponse](docs/CreateCouponResponse.md)
 - [CreateStoreRequest](docs/CreateStoreRequest.md)
 - [CustomerInventoryResponse](docs/CustomerInventoryResponse.md)
+- [CustomerJourneyView](docs/CustomerJourneyView.md)
+- [CustomerJourneyViewStepsInner](docs/CustomerJourneyViewStepsInner.md)
 - [CustomerProfile](docs/CustomerProfile.md)
 - [ErrorResponse](docs/ErrorResponse.md)
 - [ErrorResponseErrorsInner](docs/ErrorResponseErrorsInner.md)
@@ -132,6 +136,7 @@ All URIs are relative to *https://demo.bluemonk.com*
 - [InventoryCouponResponse](docs/InventoryCouponResponse.md)
 - [ListCampaignsResponse](docs/ListCampaignsResponse.md)
 - [ListCouponsResponse](docs/ListCouponsResponse.md)
+- [ListCustomerJourneys200Response](docs/ListCustomerJourneys200Response.md)
 - [ListStoresResponse](docs/ListStoresResponse.md)
 - [ReserveCouponRequest](docs/ReserveCouponRequest.md)
 - [RuleEngineTriggeredCampaign](docs/RuleEngineTriggeredCampaign.md)
