@@ -22,6 +22,7 @@ import type {
   CatalogSyncResponse,
   CouponIntegrationAPIResponse,
   CustomerInventoryResponse,
+  CustomerJourneyView,
   ErrorResponse,
   IntegrationAPICustomerUpsertBody,
   IntegrationAPIEventTrackBody,
@@ -29,6 +30,7 @@ import type {
   IntegrationAPIGetSessionResponse,
   IntegrationAPISessionUpdateBody,
   IntegrationAPISessionUpdateResponse,
+  ListCustomerJourneys200Response,
   ReserveCouponRequest,
 } from '../models/index';
 import {
@@ -46,6 +48,8 @@ import {
     CouponIntegrationAPIResponseToJSON,
     CustomerInventoryResponseFromJSON,
     CustomerInventoryResponseToJSON,
+    CustomerJourneyViewFromJSON,
+    CustomerJourneyViewToJSON,
     ErrorResponseFromJSON,
     ErrorResponseToJSON,
     IntegrationAPICustomerUpsertBodyFromJSON,
@@ -60,6 +64,8 @@ import {
     IntegrationAPISessionUpdateBodyToJSON,
     IntegrationAPISessionUpdateResponseFromJSON,
     IntegrationAPISessionUpdateResponseToJSON,
+    ListCustomerJourneys200ResponseFromJSON,
+    ListCustomerJourneys200ResponseToJSON,
     ReserveCouponRequestFromJSON,
     ReserveCouponRequestToJSON,
 } from '../models/index';
@@ -80,8 +86,18 @@ export interface GetCustomerInventoryRequest {
     coupons?: boolean;
 }
 
+export interface GetCustomerJourneyViewRequest {
+    journeyId: number;
+    integrationId: string;
+}
+
 export interface GetSessionRequest {
     integrationId: string;
+}
+
+export interface ListCustomerJourneysRequest {
+    integrationId: string;
+    status?: ListCustomerJourneysStatusEnum;
 }
 
 export interface ReserveCouponForCustomersRequest {
@@ -305,6 +321,65 @@ export class IntegrationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for getCustomerJourneyView without sending the request
+     */
+    async getCustomerJourneyViewRequestOpts(requestParameters: GetCustomerJourneyViewRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['journeyId'] == null) {
+            throw new runtime.RequiredError(
+                'journeyId',
+                'Required parameter "journeyId" was null or undefined when calling getCustomerJourneyView().'
+            );
+        }
+
+        if (requestParameters['integrationId'] == null) {
+            throw new runtime.RequiredError(
+                'integrationId',
+                'Required parameter "integrationId" was null or undefined when calling getCustomerJourneyView().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-API-Key"] = await this.configuration.apiKey("X-API-Key"); // integration_api_key authentication
+        }
+
+
+        let urlPath = `/v1/journeys/{journeyId}/customers/{integrationId}`;
+        urlPath = urlPath.replace(`{${"journeyId"}}`, encodeURIComponent(String(requestParameters['journeyId'])));
+        urlPath = urlPath.replace(`{${"integrationId"}}`, encodeURIComponent(String(requestParameters['integrationId'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve the calling customer\'s view of their most recent run through a sequential voucher journey.  ## Teaser visibility  Completed and active steps are shown in full — including the redeemable coupon code and (for the active step) its expiry. Every other step, whether not yet unlocked or already missed, appears as `locked` without a coupon code. Every step still surfaces a teaser — the reward label, timing anchor, and once-unlocked validity — and not-yet-unlocked steps anchored to `enrollment` also include an `expectedUnlockAt` date.  The customer is identified by their integration ID, and the environment (sandbox/live) is taken from the API key used. 
+     * Get a customer\'s journey view
+     */
+    async getCustomerJourneyViewRaw(requestParameters: GetCustomerJourneyViewRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomerJourneyView>> {
+        const requestOptions = await this.getCustomerJourneyViewRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomerJourneyViewFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve the calling customer\'s view of their most recent run through a sequential voucher journey.  ## Teaser visibility  Completed and active steps are shown in full — including the redeemable coupon code and (for the active step) its expiry. Every other step, whether not yet unlocked or already missed, appears as `locked` without a coupon code. Every step still surfaces a teaser — the reward label, timing anchor, and once-unlocked validity — and not-yet-unlocked steps anchored to `enrollment` also include an `expectedUnlockAt` date.  The customer is identified by their integration ID, and the environment (sandbox/live) is taken from the API key used. 
+     * Get a customer\'s journey view
+     */
+    async getCustomerJourneyView(requestParameters: GetCustomerJourneyViewRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomerJourneyView> {
+        const response = await this.getCustomerJourneyViewRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for getSession without sending the request
      */
     async getSessionRequestOpts(requestParameters: GetSessionRequest): Promise<runtime.RequestOpts> {
@@ -352,6 +427,61 @@ export class IntegrationApi extends runtime.BaseAPI {
      */
     async getSession(requestParameters: GetSessionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<IntegrationAPIGetSessionResponse> {
         const response = await this.getSessionRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listCustomerJourneys without sending the request
+     */
+    async listCustomerJourneysRequestOpts(requestParameters: ListCustomerJourneysRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['integrationId'] == null) {
+            throw new runtime.RequiredError(
+                'integrationId',
+                'Required parameter "integrationId" was null or undefined when calling listCustomerJourneys().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['status'] != null) {
+            queryParameters['status'] = requestParameters['status'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-API-Key"] = await this.configuration.apiKey("X-API-Key"); // integration_api_key authentication
+        }
+
+
+        let urlPath = `/v1/customers/{integrationId}/journeys`;
+        urlPath = urlPath.replace(`{${"integrationId"}}`, encodeURIComponent(String(requestParameters['integrationId'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Return every sequential voucher journey the customer has been enrolled in — one entry per journey (the customer\'s latest run, in any status), each with the full per-step voucher state. This lets a client wallet list a customer\'s vouchers using only the customer\'s integration ID; no journey IDs are required.  Each journey follows the same teaser rules as the single-journey view: completed and active steps reveal their coupon code; locked/upcoming steps stay code-less but surface their reward label and, when anchored to `enrollment`, their expected unlock date.  The environment (sandbox/live) is taken from the API key used. Optionally filter with `status` (e.g. `in_progress` to return only currently-active journeys). An empty list is returned when the customer has no journeys. 
+     * List a customer\'s journey vouchers
+     */
+    async listCustomerJourneysRaw(requestParameters: ListCustomerJourneysRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListCustomerJourneys200Response>> {
+        const requestOptions = await this.listCustomerJourneysRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListCustomerJourneys200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Return every sequential voucher journey the customer has been enrolled in — one entry per journey (the customer\'s latest run, in any status), each with the full per-step voucher state. This lets a client wallet list a customer\'s vouchers using only the customer\'s integration ID; no journey IDs are required.  Each journey follows the same teaser rules as the single-journey view: completed and active steps reveal their coupon code; locked/upcoming steps stay code-less but surface their reward label and, when anchored to `enrollment`, their expected unlock date.  The environment (sandbox/live) is taken from the API key used. Optionally filter with `status` (e.g. `in_progress` to return only currently-active journeys). An empty list is returned when the customer has no journeys. 
+     * List a customer\'s journey vouchers
+     */
+    async listCustomerJourneys(requestParameters: ListCustomerJourneysRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListCustomerJourneys200Response> {
+        const response = await this.listCustomerJourneysRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -700,6 +830,17 @@ export const BulkUpsertCustomersOperationSilentEnum = {
     Yes: 'yes'
 } as const;
 export type BulkUpsertCustomersOperationSilentEnum = typeof BulkUpsertCustomersOperationSilentEnum[keyof typeof BulkUpsertCustomersOperationSilentEnum];
+/**
+ * @export
+ */
+export const ListCustomerJourneysStatusEnum = {
+    Enrolled: 'enrolled',
+    InProgress: 'in_progress',
+    Completed: 'completed',
+    Exited: 'exited',
+    Cancelled: 'cancelled'
+} as const;
+export type ListCustomerJourneysStatusEnum = typeof ListCustomerJourneysStatusEnum[keyof typeof ListCustomerJourneysStatusEnum];
 /**
  * @export
  */

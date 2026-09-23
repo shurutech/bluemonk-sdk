@@ -7,7 +7,9 @@ All URIs are relative to *https://demo.bluemonk.com*
 | [**bulkUpsertCustomers**](IntegrationApi.md#bulkupsertcustomersoperation) | **PUT** /v1/customers | Bulk upsert customers |
 | [**cancelCouponReservationsForCustomers**](IntegrationApi.md#cancelcouponreservationsforcustomers) | **DELETE** /v1/coupon_reservations/{couponValue} | Cancel coupon reservations for customers |
 | [**getCustomerInventory**](IntegrationApi.md#getcustomerinventory) | **GET** /v1/customers/{integrationId}/inventory | Get customer inventory |
+| [**getCustomerJourneyView**](IntegrationApi.md#getcustomerjourneyview) | **GET** /v1/journeys/{journeyId}/customers/{integrationId} | Get a customer\&#39;s journey view |
 | [**getSession**](IntegrationApi.md#getsession) | **GET** /v1/sessions/{integrationId} | Get session by integration ID |
+| [**listCustomerJourneys**](IntegrationApi.md#listcustomerjourneys) | **GET** /v1/customers/{integrationId}/journeys | List a customer\&#39;s journey vouchers |
 | [**reserveCouponForCustomers**](IntegrationApi.md#reservecouponforcustomers) | **POST** /v1/coupon_reservations/{couponValue} | Reserve coupon for customers |
 | [**syncCatalogItems**](IntegrationApi.md#synccatalogitems) | **PUT** /v1/catalogs/{catalogId}/sync | Sync catalog items |
 | [**trackEvent**](IntegrationApi.md#trackevent) | **POST** /v1/events | Track an event |
@@ -249,6 +251,82 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## getCustomerJourneyView
+
+> CustomerJourneyView getCustomerJourneyView(journeyId, integrationId)
+
+Get a customer\&#39;s journey view
+
+Retrieve the calling customer\&#39;s view of their most recent run through a sequential voucher journey.  ## Teaser visibility  Completed and active steps are shown in full — including the redeemable coupon code and (for the active step) its expiry. Every other step, whether not yet unlocked or already missed, appears as &#x60;locked&#x60; without a coupon code. Every step still surfaces a teaser — the reward label, timing anchor, and once-unlocked validity — and not-yet-unlocked steps anchored to &#x60;enrollment&#x60; also include an &#x60;expectedUnlockAt&#x60; date.  The customer is identified by their integration ID, and the environment (sandbox/live) is taken from the API key used. 
+
+### Example
+
+```ts
+import {
+  Configuration,
+  IntegrationApi,
+} from 'bluemonk-sdk';
+import type { GetCustomerJourneyViewRequest } from 'bluemonk-sdk';
+
+async function example() {
+  console.log("🚀 Testing bluemonk-sdk SDK...");
+  const config = new Configuration({ 
+    // To configure API key authorization: integration_api_key
+    apiKey: "YOUR API KEY",
+  });
+  const api = new IntegrationApi(config);
+
+  const body = {
+    // number | The unique identifier of the journey
+    journeyId: 5,
+    // string | The integration ID for the customer or session
+    integrationId: cust-001,
+  } satisfies GetCustomerJourneyViewRequest;
+
+  try {
+    const data = await api.getCustomerJourneyView(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **journeyId** | `number` | The unique identifier of the journey | [Defaults to `undefined`] |
+| **integrationId** | `string` | The integration ID for the customer or session | [Defaults to `undefined`] |
+
+### Return type
+
+[**CustomerJourneyView**](CustomerJourneyView.md)
+
+### Authorization
+
+[integration_api_key](../README.md#integration_api_key)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Customer journey view retrieved successfully |  -  |
+| **401** | Unauthorized - Missing or invalid API key |  -  |
+| **404** | Journey or customer not found, customer not enrolled, or invalid journey ID |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## getSession
 
 > IntegrationAPIGetSessionResponse getSession(integrationId)
@@ -318,6 +396,83 @@ example().catch(console.error);
 | **200** | Session retrieved successfully |  -  |
 | **401** | Unauthorized - Missing or invalid API key |  -  |
 | **404** | Session not found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## listCustomerJourneys
+
+> ListCustomerJourneys200Response listCustomerJourneys(integrationId, status)
+
+List a customer\&#39;s journey vouchers
+
+Return every sequential voucher journey the customer has been enrolled in — one entry per journey (the customer\&#39;s latest run, in any status), each with the full per-step voucher state. This lets a client wallet list a customer\&#39;s vouchers using only the customer\&#39;s integration ID; no journey IDs are required.  Each journey follows the same teaser rules as the single-journey view: completed and active steps reveal their coupon code; locked/upcoming steps stay code-less but surface their reward label and, when anchored to &#x60;enrollment&#x60;, their expected unlock date.  The environment (sandbox/live) is taken from the API key used. Optionally filter with &#x60;status&#x60; (e.g. &#x60;in_progress&#x60; to return only currently-active journeys). An empty list is returned when the customer has no journeys. 
+
+### Example
+
+```ts
+import {
+  Configuration,
+  IntegrationApi,
+} from 'bluemonk-sdk';
+import type { ListCustomerJourneysRequest } from 'bluemonk-sdk';
+
+async function example() {
+  console.log("🚀 Testing bluemonk-sdk SDK...");
+  const config = new Configuration({ 
+    // To configure API key authorization: integration_api_key
+    apiKey: "YOUR API KEY",
+  });
+  const api = new IntegrationApi(config);
+
+  const body = {
+    // string | The integration ID for the customer or session
+    integrationId: cust-001,
+    // 'enrolled' | 'in_progress' | 'completed' | 'exited' | 'cancelled' | Optional filter — return only journeys whose current instance has this status. Omit to return all of the customer\'s journeys.  (optional)
+    status: in_progress,
+  } satisfies ListCustomerJourneysRequest;
+
+  try {
+    const data = await api.listCustomerJourneys(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **integrationId** | `string` | The integration ID for the customer or session | [Defaults to `undefined`] |
+| **status** | `enrolled`, `in_progress`, `completed`, `exited`, `cancelled` | Optional filter — return only journeys whose current instance has this status. Omit to return all of the customer\&#39;s journeys.  | [Optional] [Defaults to `undefined`] [Enum: enrolled, in_progress, completed, exited, cancelled] |
+
+### Return type
+
+[**ListCustomerJourneys200Response**](ListCustomerJourneys200Response.md)
+
+### Authorization
+
+[integration_api_key](../README.md#integration_api_key)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Customer journeys retrieved successfully (empty list if none) |  -  |
+| **400** | Invalid status filter |  -  |
+| **401** | Unauthorized - Missing or invalid API key |  -  |
+| **404** | Customer not found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
